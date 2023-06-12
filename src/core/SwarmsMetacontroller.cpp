@@ -33,7 +33,7 @@ void SwarmsMetacontroller::ControlStep(){
     // Call AutoMoDeController ControlStep();
     if(m_lightIntensityChanged){
         // handling the switch here
-        SwitchPFSMConfiguration();
+     
         m_pcFsmBuilder = new AutoMoDeFsmBuilder();
 			m_AutoMoDeController->SetFiniteStateMachine(m_pcFsmBuilder->BuildFiniteStateMachine(m_strFsmConfiguration));
         m_lightIntensityChanged = false;

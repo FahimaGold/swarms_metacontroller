@@ -13,7 +13,6 @@ class SwarmsMetacontroller:  public CCI_Controller, public Observer{
 	virtual void Reset();
 	virtual void Destroy();
     void SetFiniteStateMachine(AutoMoDeFiniteStateMachine* pc_fine_state_machine);
-    void SwitchPFSMConfiguration();
     void Notify(double lightIntensity) override;
 
     // Getters
