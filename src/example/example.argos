@@ -10,7 +10,7 @@
     <!-- ****************** -->
     <!-- * Loop functions * -->
     <!-- ****************** -->
-    <loop_functions library="/Users/mac/automode-thesis/swarms_metacontroller/build/src/libmetacontroller.dylib" label="aggregation_loop_functions">
+    <loop_functions library="/Users/mac/automode-thesis/AutoMoDe-loopfunctions/build/loop-functions/vanilla/libaggregation_loopfunc.dylib" label="aggregation_loop_functions">
         <params dist_radius="1.2" number_robots="20"/>
     </loop_functions>
 
@@ -19,7 +19,7 @@
     <!-- *************** -->
     <controllers>
         <!-- TRANSMITTER -->
-        <automode_controller id="automode" library="/Users/mac/automode-thesis/AutoMoDe/build/src/libautomode.dylib">
+        <automode_controller id="automode" library="/Users/mac/automode-thesis/swarms_metacontroller/bin/metacontroller_main">
             <actuators>
                 <epuck_wheels implementation="default" noise_std_dev="0.05"/>
                 <epuck_rgb_leds implementation="default" medium="leds"/>
