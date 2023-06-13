@@ -19,7 +19,7 @@
     <!-- *************** -->
     <controllers>
         <!-- TRANSMITTER -->
-        <swarms_metacontroller id="metacontroller" library="/Users/mac/automode-thesis/swarms_metacontroller/bin/metacontroller_main">
+        <swarms_metacontroller id="metacontroller" library="/Users/mac/automode-thesis/swarms_metacontroller/build/src/libmetacontroller.dylib">
             <actuators>
                 <epuck_wheels implementation="default" noise_std_dev="0.05"/>
                 <epuck_rgb_leds implementation="default" medium="leds"/>
