@@ -58,5 +58,5 @@ void SwarmsMetacontroller::ControlStep(){
     void SwarmsMetacontroller::SetAutoMoDeController(AutoMoDeController *autoMoDeController){
         m_AutoMoDeController = autoMoDeController;
     }
-
+   REGISTER_CONTROLLER(SwarmsMetacontroller, "swarms_metacontroller");
 }

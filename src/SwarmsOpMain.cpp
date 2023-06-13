@@ -93,8 +93,11 @@ int main(int n_argc, char** ppch_argv) {
 					AutoMoDeFiniteStateMachine* pcPersonalFsm = new AutoMoDeFiniteStateMachine(pcFiniteStateMachine);
 					vecFsm.push_back(pcPersonalFsm);
 					try {
+						std::cout << "Starting Casting ..." << std::endl;
+						std::cout << "Controller Type: " << typeid(pcEntity->GetController()).name() << std::endl;
 						SwarmsMetacontroller& cController = dynamic_cast<SwarmsMetacontroller&> (pcEntity->GetController());
 						cController.SetFiniteStateMachine(pcPersonalFsm);
+						std::cout << "Done casting ..." << std::endl;
 						cController.GetAutoMoDeController()->SetHistoryFlag(bHistory);
 						LightObserver observer(cController);  // Pass the AutoMoDeController as an observer
                         observer.StartObserving(); 

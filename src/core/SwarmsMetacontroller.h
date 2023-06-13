@@ -2,8 +2,9 @@
 #include "../AutoMoDe/src/core/AutoMoDeFiniteStateMachine.h"
 #include "../AutoMoDe/src/core/AutoMoDeFsmBuilder.h"
 #include "Observer.h"
+
 namespace argos {
-class SwarmsMetacontroller:  public CCI_Controller, public Observer{
+class SwarmsMetacontroller:  public AutoMoDeController ,public Observer{
     public:
    
 	SwarmsMetacontroller();

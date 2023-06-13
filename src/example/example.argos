@@ -19,7 +19,7 @@
     <!-- *************** -->
     <controllers>
         <!-- TRANSMITTER -->
-        <automode_controller id="automode" library="/Users/mac/automode-thesis/swarms_metacontroller/bin/metacontroller_main">
+        <swarms_metacontroller id="metacontroller" library="/Users/mac/automode-thesis/swarms_metacontroller/bin/metacontroller_main">
             <actuators>
                 <epuck_wheels implementation="default" noise_std_dev="0.05"/>
                 <epuck_rgb_leds implementation="default" medium="leds"/>
@@ -33,7 +33,7 @@
                 <epuck_omnidirectional_camera implementation="rot_z_only" medium="leds" show_rays="false"/>
             </sensors>
             <params fsm-config="--nstates 1 --s0 1"/>
-        </automode_controller>
+        </swarms_metacontroller>
     </controllers>
 
     <!-- ********* -->
@@ -96,7 +96,7 @@
             <orientation method="gaussian" mean="0,0,0" std_dev="360,0,0" />
             <entity quantity="20" max_trials="100">
                 <e-puck id="epuck">
-                    <controller config="automode" />
+                    <controller config="metacontroller" />
                 </e-puck>
             </entity>
         </distribute>
