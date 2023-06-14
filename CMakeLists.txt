@@ -44,4 +44,3 @@ include(${CMAKE_SOURCE_DIR}/src/cmake/FindPthreads.cmake)
 #
 
 add_subdirectory(src)
-add_subdirectory(src/AutoMoDe)

@@ -1,16 +1,29 @@
-#include "./AutoMoDe/src/core/AutoMoDeFiniteStateMachine.h"
+/*
+ * @file <src/AutoMoDeMain.cpp>
+ *
+ * @author Antoine Ligot - <aligot@ulb.ac.be>
+ *
+ * @package ARGoS3-AutoMoDe
+ *
+ * @license MIT License
+ */
+
 #include <argos3/core/simulator/simulator.h>
 #include <argos3/core/simulator/space/space.h>
 #include <argos3/core/simulator/entity/entity.h>
 #include <argos3/core/simulator/entity/controllable_entity.h>
 #include <argos3/core/utility/plugins/dynamic_loading.h>
 #include <argos3/core/simulator/argos_command_line_arg_parser.h>
-#include "./AutoMoDe/src/core/AutoMoDeFsmBuilder.h"
-#include "./AutoMoDe/src/core/AutoMoDeController.h"
+
+#include "AutoMoDe/src/core/AutoMoDeFiniteStateMachine.h"
+#include "AutoMoDe/src/core/AutoMoDeFsmBuilder.h"
+#include "AutoMoDe/src/core/AutoMoDeController.h"
 #include "core/SwarmsMetacontroller.h"
-#include "core/LightObserver.h"
+
 #include <argos3/demiurge/loop-functions/CoreLoopFunctions.h>
+
 using namespace argos;
+
 const std::string ExplainParameters() {
 	std::string strExplanation = "Missing finite state machine configuration. The possible parameters are: \n\n"
 		" -r | --readable-fsm \t Prints an URL containing a DOT representation of the finite state machine [OPTIONAL]. \n"
@@ -20,9 +33,13 @@ const std::string ExplainParameters() {
 	return strExplanation;
 }
 
+/**
+ * @brief
+ *
+ */
 int main(int n_argc, char** ppch_argv) {
-    std::cout<< "Hello world!"<<std::endl;
-   bool bHistory = false;
+
+	bool bHistory = false;
 
 	bool bReadableFSM = false;
 	std::vector<std::string> vecConfigFsm;
@@ -65,6 +82,7 @@ int main(int n_argc, char** ppch_argv) {
 
 		CSimulator& cSimulator = CSimulator::GetInstance();
 
+
 		switch(cACLAP.GetAction()) {
     	case CARGoSCommandLineArgParser::ACTION_RUN_EXPERIMENT: {
 				CDynamicLoading::LoadAllLibraries();
@@ -83,8 +101,13 @@ int main(int n_argc, char** ppch_argv) {
 
 				// Setting random seed. Only works with modified version of ARGoS3.
 				cSimulator.SetRandomSeed(unSeed);
+                try{
 
-				cSimulator.LoadExperiment();
+                   cSimulator.LoadExperiment();
+				}
+				catch (std::exception& ex) {
+						LOGERR << "Error while loading experiment: " << ex.what() << std::endl;
+					}
 
 				// Duplicate the finite state machine and pass it to all robots.
 				CSpace::TMapPerType cEntities = cSimulator.GetSpace().GetEntitiesByType("controller");
@@ -93,14 +116,9 @@ int main(int n_argc, char** ppch_argv) {
 					AutoMoDeFiniteStateMachine* pcPersonalFsm = new AutoMoDeFiniteStateMachine(pcFiniteStateMachine);
 					vecFsm.push_back(pcPersonalFsm);
 					try {
-						std::cout << "Starting Casting ..." << std::endl;
-						std::cout << "Controller Type: " << typeid(pcEntity->GetController()).name() << std::endl;
 						SwarmsMetacontroller& cController = dynamic_cast<SwarmsMetacontroller&> (pcEntity->GetController());
 						cController.SetFiniteStateMachine(pcPersonalFsm);
-						std::cout << "Done casting ..." << std::endl;
-						cController.GetAutoMoDeController()->SetHistoryFlag(bHistory);
-						LightObserver observer(cController);  // Pass the AutoMoDeController as an observer
-                        observer.StartObserving(); 
+						cController.SetHistoryFlag(bHistory);
 					} catch (std::exception& ex) {
 						LOGERR << "Error while casting: " << ex.what() << std::endl;
 					}
