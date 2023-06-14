@@ -26,6 +26,7 @@ set(AUTOMODE_HEADERS
 	AutoMoDe/src/modules/AutoMoDeConditionFixedProbability.h
 	# SwarmsMetactontroller
 	core/SwarmsMetacontroller.h
+	core/ConfigFile.h
 	)
 
 # Sources
@@ -51,7 +52,8 @@ AutoMoDe/src/core/AutoMoDeFsmHistory.cpp
 	AutoMoDe/src/modules/AutoMoDeConditionInvertedNeighborsCount.cpp
 	AutoMoDe/src/modules/AutoMoDeConditionFixedProbability.cpp
 	# SwarmsMetactontroller
-	core/SwarmsMetacontroller.cpp)
+	core/SwarmsMetacontroller.cpp
+	core/ConfigFile.cpp)
 
 
 add_library(metacontroller SHARED ${AUTOMODE_HEADERS} ${AUTOMODE_SOURCES})

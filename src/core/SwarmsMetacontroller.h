@@ -10,6 +10,7 @@
 #include "AutoMoDe/src/core/AutoMoDeFiniteStateMachine.h"
 #include "AutoMoDe/src/core/AutoMoDeFsmBuilder.h"
 #include "AutoMoDe/src/core/AutoMoDeController.h"
+#include "ConfigFile.h"
 #include <argos3/plugins/robots/e-puck/control_interface/ci_epuck_wheels_actuator.h>
 #include <argos3/plugins/robots/e-puck/control_interface/ci_epuck_range_and_bearing_sensor.h>
 #include <argos3/plugins/robots/e-puck/control_interface/ci_epuck_range_and_bearing_actuator.h>
@@ -45,6 +46,12 @@ class SwarmsMetacontroller:  public CCI_Controller {
 
 			void SetHistoryFlag(bool b_history_flag);
 
+			/*
+			Pointer to the ConfigFile
+            it retrieves the appropriate PFSM config according to the searched property "property" with value of "value"
+            */ 
+			ConfigFile* configFile;
+
 		private:
 			/*
 			 * Function that contains all actuations required at the start of an experiment or during the entire experiment.
@@ -79,6 +86,12 @@ class SwarmsMetacontroller:  public CCI_Controller {
 			 * String that contains the configuration of the finite state machine.
 			 */
 			std::string m_strFsmConfiguration;
+
+			/*
+			 * String that contains the path to the pfsm config file
+			 */
+
+			std::string strPFSMConfigFile;
 
 			/*
 			 * Flag that tells whether an history is maintained or not.

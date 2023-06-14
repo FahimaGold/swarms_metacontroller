@@ -95,6 +95,7 @@
         "source_location": "cpp",
         "charconv": "cpp",
         "span": "cpp",
-        "format": "cpp"
+        "format": "cpp",
+        "*.keepme": "cpp"
     }
 }

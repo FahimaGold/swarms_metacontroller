@@ -10,6 +10,7 @@ namespace argos {
 		m_bPrintReadableFsm = false;
 		m_strHistoryFolder = "./";
 		m_bFiniteStateMachineGiven = false;
+		strPFSMConfigFile = "/Users/mac/automode-thesis/swarms_metacontroller/src/example/pfsm-config.txt";
  }
    
 SwarmsMetacontroller:: ~SwarmsMetacontroller(){
@@ -28,6 +29,8 @@ SwarmsMetacontroller:: ~SwarmsMetacontroller(){
 			GetNodeAttributeOrDefault(t_node, "history", m_bMaintainHistory, m_bMaintainHistory);
 			GetNodeAttributeOrDefault(t_node, "hist-folder", m_strHistoryFolder, m_strHistoryFolder);
 			GetNodeAttributeOrDefault(t_node, "readable", m_bPrintReadableFsm, m_bPrintReadableFsm);
+
+		
 		} catch (CARGoSException& ex) {
 			THROW_ARGOSEXCEPTION_NESTED("Error parsing <params>", ex);
 		}
@@ -67,6 +70,7 @@ SwarmsMetacontroller:: ~SwarmsMetacontroller(){
 			m_pcGroundSensor = GetSensor<CCI_EPuckGroundSensor>("epuck_ground");
 			 m_pcRabSensor = GetSensor<CCI_EPuckRangeAndBearingSensor>("epuck_range_and_bearing");
 			 m_pcCameraSensor = GetSensor<CCI_EPuckOmnidirectionalCameraSensor>("epuck_omnidirectional_camera");
+
 		} catch (CARGoSException ex) {
 			LOGERR<<"Error while initializing a Sensor!\n";
 		}
@@ -89,8 +93,10 @@ SwarmsMetacontroller:: ~SwarmsMetacontroller(){
 void SwarmsMetacontroller::ControlStep(){
 	CVector2 sLightVector(0,CRadians::ZERO);
 	Real lightIntensity = 5.0;
+	double newLightIntensity;
 	// Set the tolerance range for comparison
     const double tolerance = 0.1;
+	
 
      /*
 		 * 1. Update RobotDAO
@@ -136,8 +142,14 @@ void SwarmsMetacontroller::ControlStep(){
 		 */ 
 		 
 		 if (SwarmsMetacontroller::m_unTimeStep == 100){
-			lightIntensity = 1.0;
-			  SwarmsMetacontroller:: m_strFsmConfiguration= "--nstates 3 --s0 2 --n0 2 --n0x0 1 --c0x0 1 --p0x0 0.93 --n0x1 1 --c0x1 0 --p0x1 0.86 --s1 4 --att1 3.69 --n1 1 --n1x0 1 --c1x0 3 --p1x0 4 --w1x0 18.49 --s2 1 --n2 3 --n2x0 0 --c2x0 2 --p2x0 0.33 --n2x1 0 --c2x1 3 --p2x1 3 --w2x1 4.69 --n2x2 1 --c2x2 0 --p2x2 0.89";
+			 newLightIntensity = 1.0;
+			 
+			  configFile = new ConfigFile();
+			 
+				SwarmsMetacontroller::m_strFsmConfiguration = SwarmsMetacontroller::configFile->ParseFile(SwarmsMetacontroller::strPFSMConfigFile, "light_intensity", newLightIntensity);
+
+              
+			 
 			m_pcFsmBuilder = new AutoMoDeFsmBuilder();
 		
 			SetFiniteStateMachine(m_pcFsmBuilder->BuildFiniteStateMachine(m_strFsmConfiguration));
@@ -179,7 +191,7 @@ void SwarmsMetacontroller::ControlStep(){
  }
 
  void SwarmsMetacontroller::Reset(){
-		//m_AutoMoDeController->Reset();
+		
 	}
 
 void SwarmsMetacontroller::InitializeActuation() {
@@ -208,6 +220,8 @@ void SwarmsMetacontroller::SetHistoryFlag(bool b_history_flag) {
 			m_pcFiniteStateMachine->MaintainHistory();
 		}
 	}
+
+
 
   
    REGISTER_CONTROLLER(SwarmsMetacontroller, "swarms_metacontroller");
