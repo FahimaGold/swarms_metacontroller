@@ -33,6 +33,7 @@
                 <epuck_omnidirectional_camera implementation="rot_z_only" medium="leds" show_rays="false"/>
             </sensors>
             <params fsm-config="--nstates 1 --s0 1"/>
+            <params pfsm-config="/Users/mac/automode-thesis/swarms_metacontroller/src/example/pfsm-config.txt"/>
         </swarms_metacontroller>
     </controllers>
 
