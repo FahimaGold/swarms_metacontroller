@@ -60,11 +60,11 @@ The second images, shows a PFSM configuration when the light intensity is 5.0, a
 
 I ran the metacontroller, having intially the light intensity 5.0, and I gave it the appropriate PFSM configuration: `./bin/metacontroller_main -c src/example/example.argos -s 0   --fsm-config --nstates 1 --s0 3`. In the loop function, I handled the change of the light intensity to 1.0, after 100 timesteps from the start of the experiment. By the end of the experiment, the objective function was **0.1** on average, which means much better than running the same PFSM all along the experiment. In other words, choosing the appropriate PFSM when the light intensity changed, allowed to increase the objective function. 
 
-The first screenshot shows the PFSM generated when the light intensity was 5.0, and was taken before reaching 100 timesteps.[Anti-Phototaxis](./img/Screenshot 2023-06-15 at 15.08.04.png)
+The first screenshot shows the PFSM generated when the light intensity was 5.0, and was taken before reaching 100 timesteps[Anti-Phototaxis](./img/Screenshot 2023-06-15 at 15.08.04.png)
 
-The second screenshot was taken exactly at 100 timesteps.[100timesteps](./img/Screenshot 2023-06-15 at 15.08.32.png).
+The second screenshot was taken exactly at 100 timesteps[100timesteps](./img/Screenshot 2023-06-15 at 15.08.32.png)
 
 
-The third screenshot was taken some time after 100 timesteps.[+500timesteps](./img/Screenshot 2023-06-15 at 15.09.24.png).
+The third screenshot was taken some time after 100 timesteps[+500timesteps](./img/Screenshot 2023-06-15 at 15.09.24.png)
 
-The fourth screenshot was taken after 1000 timesteps. [+1000timesteps](./img/Screenshot 2023-06-15 at 15.11.22.png)
+The fourth screenshot was taken after 1000 timesteps[+1000timesteps](./img/Screenshot 2023-06-15 at 15.11.22.png)
