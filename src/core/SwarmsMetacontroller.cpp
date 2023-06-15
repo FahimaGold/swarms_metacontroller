@@ -90,12 +90,13 @@ SwarmsMetacontroller:: ~SwarmsMetacontroller(){
 }
 
 void SwarmsMetacontroller::ControlStep(){
-	CVector2 sLightVector(0,CRadians::ZERO);
-	Real lightIntensity = 5.0;
-	double newLightIntensity;
-	// Set the tolerance range for comparison
-    const double tolerance = 0.1;
 	
+	double highLightIntensity = 5.0;
+	
+	// sensor range
+	const double sensorRange = 1.0;  
+    // If the sensorRange is 1.0, and the light intensity in the environment can be 5.0, we need to do a scaling
+	double scale = sensorRange / highLightIntensity;
 
      /*
 		 * 1. Update RobotDAO
@@ -117,24 +118,27 @@ void SwarmsMetacontroller::ControlStep(){
 			Monitor the light sensor, if the light changes, switch the PFSM controller
 			*/
 			// Iterate over the sensor readings
-         for (const auto& reading : readings) {
-			std::cout <<"light intensity: inside sensor"<<reading.Value<<std::endl;
-         // Check if the measured light intensity is within the tolerance range of 5.0
-         if (std::abs(reading.Value - 5.0) <= tolerance) {
-			std::cout <<"light intensity: "<<reading.Value<<std::endl;
+         
+			std::cout <<"light intensity: inside sensor"<<m_pcRobotState->GetLightReading().Value<<std::endl;
+         // Handling light intensity
+         if (m_pcRobotState->GetLightReading().Value >= scale) {
+			std::cout <<"light intensity: inside sensor"<<m_pcRobotState->GetLightReading().Value<<std::endl;
            	SwarmsMetacontroller::m_strFsmConfiguration = SwarmsMetacontroller::configFile->ParseFile(SwarmsMetacontroller::strPFSMConfigFile, "light_intensity", 5.0);
-         }
+            m_pcFsmBuilder = new AutoMoDeFsmBuilder();
+		
+			SetFiniteStateMachine(m_pcFsmBuilder->BuildFiniteStateMachine(m_strFsmConfiguration));
+		 }
 
-		 if (std::abs(reading.Value - 1.0) <= tolerance) {
-			std::cout <<"light intensity: "<<reading.Value<<std::endl;
+		 if (m_pcRobotState->GetLightReading().Value < scale) {
+			std::cout <<"light intensity: inside sensor"<<m_pcRobotState->GetLightReading().Value<<std::endl;
             	SwarmsMetacontroller::m_strFsmConfiguration = SwarmsMetacontroller::configFile->ParseFile(SwarmsMetacontroller::strPFSMConfigFile, "light_intensity", 1.0);
+			m_pcFsmBuilder = new AutoMoDeFsmBuilder();
+		
+			SetFiniteStateMachine(m_pcFsmBuilder->BuildFiniteStateMachine(m_strFsmConfiguration));
          }
-		 	}
+		 	
 
-		 /*
-		 Since we cannot update light intensity during runtime in Argos3,
-		 We will use this condition to change light intensity after some time
-		 */ 
+		 
 		
 		
 		}
