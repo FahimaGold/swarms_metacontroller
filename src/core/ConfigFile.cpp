@@ -8,7 +8,6 @@ ConfigFile::ConfigFile() {
 std::string ConfigFile::ParseFile(const std::string& filename, const std::string& property, double intensity) {
     std::ifstream file(filename);
     std::string pfsm = "";
-    std::cout<<"inside parsing file"<<std::endl;
 
     if (file.is_open()) {
         std::string line;

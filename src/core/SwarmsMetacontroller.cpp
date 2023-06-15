@@ -111,18 +111,13 @@ void SwarmsMetacontroller::ControlStep(){
 			m_pcRobotState->SetGroundInput(readings);
 		}
 		if (m_pcLightSensor != NULL) {
-	        std::cout <<"light intensity: inside sensor"<<std::endl;
 			const CCI_EPuckLightSensor::TReadings& readings = m_pcLightSensor->GetReadings();
 			m_pcRobotState->SetLightInput(readings);
 			/*
 			Monitor the light sensor, if the light changes, switch the PFSM controller
 			*/
-			// Iterate over the sensor readings
-         
-			std::cout <<"light intensity: inside sensor"<<m_pcRobotState->GetLightReading().Value<<std::endl;
          // Handling light intensity
          if (m_pcRobotState->GetLightReading().Value >= scale) {
-			std::cout <<"light intensity: inside sensor"<<m_pcRobotState->GetLightReading().Value<<std::endl;
            	SwarmsMetacontroller::m_strFsmConfiguration = SwarmsMetacontroller::configFile->ParseFile(SwarmsMetacontroller::strPFSMConfigFile, "light_intensity", 5.0);
             m_pcFsmBuilder = new AutoMoDeFsmBuilder();
 		
@@ -130,7 +125,6 @@ void SwarmsMetacontroller::ControlStep(){
 		 }
 
 		 if (m_pcRobotState->GetLightReading().Value < scale) {
-			std::cout <<"light intensity: inside sensor"<<m_pcRobotState->GetLightReading().Value<<std::endl;
             	SwarmsMetacontroller::m_strFsmConfiguration = SwarmsMetacontroller::configFile->ParseFile(SwarmsMetacontroller::strPFSMConfigFile, "light_intensity", 1.0);
 			m_pcFsmBuilder = new AutoMoDeFsmBuilder();
 		
