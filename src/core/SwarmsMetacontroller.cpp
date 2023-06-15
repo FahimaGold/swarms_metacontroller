@@ -4,7 +4,6 @@ namespace argos {
  {
    
    	m_pcRobotState = new ReferenceModel1Dot2();
-		m_unTimeStep = 0;
 		m_strFsmConfiguration = "";
 		m_bMaintainHistory = false;
 		m_bPrintReadableFsm = false;
@@ -111,6 +110,7 @@ void SwarmsMetacontroller::ControlStep(){
 			m_pcRobotState->SetGroundInput(readings);
 		}
 		if (m_pcLightSensor != NULL) {
+	        std::cout <<"light intensity: inside sensor"<<std::endl;
 			const CCI_EPuckLightSensor::TReadings& readings = m_pcLightSensor->GetReadings();
 			m_pcRobotState->SetLightInput(readings);
 			/*
@@ -118,12 +118,15 @@ void SwarmsMetacontroller::ControlStep(){
 			*/
 			// Iterate over the sensor readings
          for (const auto& reading : readings) {
+			std::cout <<"light intensity: inside sensor"<<reading.Value<<std::endl;
          // Check if the measured light intensity is within the tolerance range of 5.0
          if (std::abs(reading.Value - 5.0) <= tolerance) {
+			std::cout <<"light intensity: "<<reading.Value<<std::endl;
            	SwarmsMetacontroller::m_strFsmConfiguration = SwarmsMetacontroller::configFile->ParseFile(SwarmsMetacontroller::strPFSMConfigFile, "light_intensity", 5.0);
          }
 
 		 if (std::abs(reading.Value - 1.0) <= tolerance) {
+			std::cout <<"light intensity: "<<reading.Value<<std::endl;
             	SwarmsMetacontroller::m_strFsmConfiguration = SwarmsMetacontroller::configFile->ParseFile(SwarmsMetacontroller::strPFSMConfigFile, "light_intensity", 1.0);
          }
 		 	}
@@ -132,23 +135,7 @@ void SwarmsMetacontroller::ControlStep(){
 		 Since we cannot update light intensity during runtime in Argos3,
 		 We will use this condition to change light intensity after some time
 		 */ 
-		 
-		 /*if (SwarmsMetacontroller::m_unTimeStep == 100){
-			 newLightIntensity = 1.0;
-			 
-			  configFile = new ConfigFile();
-			 
-				SwarmsMetacontroller::m_strFsmConfiguration = SwarmsMetacontroller::configFile->ParseFile(SwarmsMetacontroller::strPFSMConfigFile, "light_intensity", newLightIntensity);
-
-              
-			 
-			m_pcFsmBuilder = new AutoMoDeFsmBuilder();
 		
-			SetFiniteStateMachine(m_pcFsmBuilder->BuildFiniteStateMachine(m_strFsmConfiguration));
-
-		 } */
-		
-
 		
 		}
 		if (m_pcProximitySensor != NULL) {
@@ -174,7 +161,6 @@ void SwarmsMetacontroller::ControlStep(){
 		if (m_pcRabSensor != NULL) {
 			m_pcRabSensor->ClearPackets();
 		}
-		m_unTimeStep++;
 
 
 }

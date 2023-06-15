@@ -75,8 +75,7 @@ class SwarmsMetacontroller:  public CCI_Controller {
 			/*
 			 * Time step variable.
 			 */
-			UInt32 m_unTimeStep;
-
+		
 			/*
 			 * Integer part of the robot identifier.
 			 */
