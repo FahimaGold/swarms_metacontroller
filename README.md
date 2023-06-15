@@ -48,7 +48,7 @@ Under the same folder, the file `pfsm-config.txt`contains the PFSM configuration
 
 The below images depict the graphical visualization for both PFSM configurations used in this metacontroller.
 
-[Light Intensity 1.0](./img/aggregation_cngID_31291light_0.1.png)]
+[Light Intensity 1.0](./img/aggregation_cngID_31291light_0.1.png)
 
 [Light Intensity 5.0](./img/aggregation_configID3_light_5.0.png)
 
