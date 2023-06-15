@@ -117,31 +117,23 @@ void SwarmsMetacontroller::ControlStep(){
 			Monitor the light sensor, if the light changes, switch the PFSM controller
 			*/
 			// Iterate over the sensor readings
-         /*for (const auto& reading : readings) {
+         for (const auto& reading : readings) {
          // Check if the measured light intensity is within the tolerance range of 5.0
          if (std::abs(reading.Value - 5.0) <= tolerance) {
-            // The measured light intensity is approximately 5.0
-            SwarmsMetacontroller:: m_strFsmConfiguration = "--nstates 1 --s0 3";
-			m_pcFsmBuilder = new AutoMoDeFsmBuilder();
-		
-			SetFiniteStateMachine(m_pcFsmBuilder->BuildFiniteStateMachine(m_strFsmConfiguration));
+           	SwarmsMetacontroller::m_strFsmConfiguration = SwarmsMetacontroller::configFile->ParseFile(SwarmsMetacontroller::strPFSMConfigFile, "light_intensity", 5.0);
          }
 
 		 if (std::abs(reading.Value - 1.0) <= tolerance) {
-            // The measured light intensity is approximately 1.0
-            SwarmsMetacontroller:: m_strFsmConfiguration= "--nstates 3 --s0 2 --n0 2 --n0x0 1 --c0x0 1 --p0x0 0.93 --n0x1 1 --c0x1 0 --p0x1 0.86 --s1 4 --att1 3.69 --n1 1 --n1x0 1 --c1x0 3 --p1x0 4 --w1x0 18.49 --s2 1 --n2 3 --n2x0 0 --c2x0 2 --p2x0 0.33 --n2x1 0 --c2x1 3 --p2x1 3 --w2x1 4.69 --n2x2 1 --c2x2 0 --p2x2 0.89";
-			m_pcFsmBuilder = new AutoMoDeFsmBuilder();
-		
-			SetFiniteStateMachine(m_pcFsmBuilder->BuildFiniteStateMachine(m_strFsmConfiguration));
+            	SwarmsMetacontroller::m_strFsmConfiguration = SwarmsMetacontroller::configFile->ParseFile(SwarmsMetacontroller::strPFSMConfigFile, "light_intensity", 1.0);
          }
-		 	}*/
+		 	}
 
 		 /*
 		 Since we cannot update light intensity during runtime in Argos3,
 		 We will use this condition to change light intensity after some time
 		 */ 
 		 
-		 if (SwarmsMetacontroller::m_unTimeStep == 100){
+		 /*if (SwarmsMetacontroller::m_unTimeStep == 100){
 			 newLightIntensity = 1.0;
 			 
 			  configFile = new ConfigFile();
@@ -154,7 +146,7 @@ void SwarmsMetacontroller::ControlStep(){
 		
 			SetFiniteStateMachine(m_pcFsmBuilder->BuildFiniteStateMachine(m_strFsmConfiguration));
 
-		 } 
+		 } */
 		
 
 		

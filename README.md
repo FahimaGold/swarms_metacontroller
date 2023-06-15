@@ -21,5 +21,3 @@ This metacontroller uses:
 - [AutoMoDe](https://github.com/demiurge-project/ARGoS3-AutoMoDe) as a robot controller. AutoMoDe is an offline design method that uses a probabilistic finite state machine to design control software. 
 - [ARGoS3] https://github.com/ilpincy/argos3. Argos3 is a simulator that is used in many fields, including robot swarms, and it is based on c++.
 - Dependendencies required for AutoMoDe [dependencies](https://iridia.ulb.ac.be/wiki/Getting_started_for_Demiurge)
-
-
