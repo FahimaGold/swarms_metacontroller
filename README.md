@@ -40,7 +40,7 @@ from the `SWARMS_METACONTROLLER` folder run:
 
 where `s`is the random seed of argos3, and --fsm-config the FSM configuration. It can be anything respecting the encoded format used in AutoMoDe. And `-c` the argos flag that expects the `.argos` file.
 
-## Example
+## Example/ Experiment
 
 An example is found in `src/example/example.argos`, it uses the loopfunctions for the aggregation mission used in AutoMoDe, 20 e-puck robots, 2 black spots, and one light source in the environment. The objective function is defined as the maximum number of robots aggregated in one of the black spot divided by the total number of robots, by the end of the experiment.
 
