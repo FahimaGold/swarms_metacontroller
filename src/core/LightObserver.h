@@ -7,7 +7,13 @@
 #include <argos3/demiurge/epuck-dao/ReferenceModel1Dot2.h>
 #include <chrono>
 #include <thread>
+
+
+ /*
+    An example of how the monitoring can be achieved using an Observer to monitor a certain condition.
+    */ 
 namespace argos {
+   
 class LightObserver: public CCI_Controller {
 public:
     LightObserver(Observer &m_observer);
