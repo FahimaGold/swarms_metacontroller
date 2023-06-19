@@ -5,7 +5,7 @@ ConfigFile::ConfigFile() {
     // Constructor implementation
 }
 
-std::string ConfigFile::ParseFile(const std::string& filename, const std::string& property, double intensity) {
+std::string ConfigFile::SelectConfiguration(const std::string& filename, const std::string& property, double intensity) {
     std::ifstream file(filename);
     std::string pfsm = "";
 

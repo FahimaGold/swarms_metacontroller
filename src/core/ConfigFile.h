@@ -10,6 +10,6 @@ class ConfigFile{
     public:
        ConfigFile();
     
-       std::string ParseFile(const std::string& filename, const std::string& property, double intensity);
+       std::string SelectConfiguration(const std::string& filename, const std::string& property, double intensity);
 };
     

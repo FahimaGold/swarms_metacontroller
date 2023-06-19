@@ -111,23 +111,27 @@ void SwarmsMetacontroller::ControlStep(){
 			m_pcRobotState->SetGroundInput(readings);
 		}
 		if (m_pcLightSensor != NULL) {
+			// MAPE-K Monitor
 			const CCI_EPuckLightSensor::TReadings& readings = m_pcLightSensor->GetReadings();
 			m_pcRobotState->SetLightInput(readings);
 			/*
 			Monitor the light sensor, if the light changes, switch the PFSM controller
 			*/
          // Handling light intensity
+		 // MAPE-K Analyze
          if (m_pcRobotState->GetLightReading().Value >= scale) {
-           	SwarmsMetacontroller::m_strFsmConfiguration = SwarmsMetacontroller::configFile->ParseFile(SwarmsMetacontroller::strPFSMConfigFile, "light_intensity", 5.0);
+			// MAPE-K Plan
+           	SwarmsMetacontroller::m_strFsmConfiguration = SwarmsMetacontroller::configFile->SelectConfiguration(SwarmsMetacontroller::strPFSMConfigFile, "light_intensity", 5.0);
             m_pcFsmBuilder = new AutoMoDeFsmBuilder();
-		
+		    //MAPE-K Execute
 			SetFiniteStateMachine(m_pcFsmBuilder->BuildFiniteStateMachine(m_strFsmConfiguration));
 		 }
-
+         // MAPE-K Analyze
 		 if (m_pcRobotState->GetLightReading().Value < scale) {
-            	SwarmsMetacontroller::m_strFsmConfiguration = SwarmsMetacontroller::configFile->ParseFile(SwarmsMetacontroller::strPFSMConfigFile, "light_intensity", 1.0);
+			// MAPE-K Plan
+            SwarmsMetacontroller::m_strFsmConfiguration = SwarmsMetacontroller::configFile->SelectConfiguration(SwarmsMetacontroller::strPFSMConfigFile, "light_intensity", 1.0);
 			m_pcFsmBuilder = new AutoMoDeFsmBuilder();
-		
+		    //MAPE-K Execute
 			SetFiniteStateMachine(m_pcFsmBuilder->BuildFiniteStateMachine(m_strFsmConfiguration));
          }
 		 	
